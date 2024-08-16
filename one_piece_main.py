@@ -8,17 +8,6 @@ from modulo_criar_banco import InserirNoBanco
 x = PesquisarDados() 
 lista_titulos = x[0]
 lista_precos = x[1]
+lista_links = x[2]
 
-InserirNoBanco (lista_titulos, lista_precos)
-
-
-
-
-
-
-
-
-#sempre que pegar o dado de algum dia criar uma nova tabela
-#essa tabela se chamará One_Piece_3_em_1_{data}
-#para pegar a data é nescessário uma biblioteca diferenciada
-#use format() para efetuar a troca
+InserirNoBanco (lista_titulos, lista_precos, lista_links)
