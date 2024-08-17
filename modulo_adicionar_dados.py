@@ -25,13 +25,19 @@ def PesquisarDados ():
 	for l in titulos:
 		if 'ONE PIECE 3 EM 1' in titulos[x].get_text().upper() or 'ONE PIECE (3 EM 1)' in titulos[x].get_text().upper():
 			lista_titulos.append (titulos[x].get_text().strip())
-			lista_precos.append (precos[x].get_text().strip())
-			lista_links.append (links[x])
+			if 'R$\xa0' in precos [x].get_text():
+				lista_precos.append (precos[x].get_text().strip())
+				lista_links.append (links[x])
 		x += 1
 
 	#encurtar o link
 	encurtador = pyshorteners.Shortener()
 	lista_links = [encurtador.tinyurl.short(i) for i in lista_links]
+
+	#imprimir valores
+	print (lista_titulos)
+	print (lista_precos)
+	print (lista_links)
 
 	#retornar valores
 	valores = [lista_titulos, lista_precos, lista_links]
