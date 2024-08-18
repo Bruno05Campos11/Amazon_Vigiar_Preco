@@ -30,15 +30,22 @@ def PesquisarDados ():
 				lista_links.append (links[x])
 		x += 1
 
+	#transformar preco string para float
+	lista_precos_float = [float(i[3:].replace(",",".")) for i in lista_precos]
+
 	#encurtar o link
 	encurtador = pyshorteners.Shortener()
 	lista_links = [encurtador.tinyurl.short(i) for i in lista_links]
 
 	#imprimir valores
+	print (f"\nTamanho: {len(lista_titulos)}")
 	print (lista_titulos)
-	print (lista_precos)
+	print (f"\nTamanho: {len(lista_precos_float)}")
+	#print (lista_precos)
+	print (lista_precos_float)
+	print (f"\nTamanho: {len(lista_links)}")
 	print (lista_links)
-
+	
 	#retornar valores
-	valores = [lista_titulos, lista_precos, lista_links]
+	valores = [lista_titulos, lista_precos_float, lista_links]
 	return valores

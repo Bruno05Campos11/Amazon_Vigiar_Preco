@@ -18,7 +18,7 @@ def InserirNoBanco (lista_titulos,lista_precos, lista_links):
 	data = str(date.today()).replace ("-","_")
 	tabela = tabela + data
 
-	comando = "CREATE TABLE {} (id int auto_increment primary key, titulo varchar (30) not null, preco varchar (14) not null, link varchar (30) not null, data date not null);"
+	comando = "CREATE TABLE {} (id int auto_increment primary key, titulo varchar (30) not null, preco decimal (5,2) not null, link varchar (30) not null, data date not null);"
 	comando = comando.format(tabela)
 	maker.execute (comando)
 
@@ -28,9 +28,13 @@ def InserirNoBanco (lista_titulos,lista_precos, lista_links):
 	data = str (date.today ())
 
 	x = 0
-	for i in lista_titulos:
+	#for i in lista_titulos:
+	for i in lista_precos:
 		valores = (lista_titulos[x], lista_precos[x], lista_links[x], data)
+		print (lista_precos[x])
 		maker.execute (comando, valores)
 		banco.commit ()
 		print (maker.rowcount, "foi inserido")
 		x += 1
+
+	print ("Banco preparado para consultas!")
