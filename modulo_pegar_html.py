@@ -8,7 +8,7 @@ def EntrarAmazon ():
 	print ("\nMÓDULO 1------------------------------------------------------------------------\n")
 	configuracao = webdriver.EdgeOptions()
 	configuracao.add_argument("--start-maximized")
-	#configuracao.add_argument("--headless") #para rodar em segundo plano sem abrir o navegador
+	configuracao.add_argument("--headless") #para rodar em segundo plano sem abrir o navegador
 	navegador = webdriver.Edge(options=configuracao)
 
 	navegador.get ("https://www.amazon.com.br/")

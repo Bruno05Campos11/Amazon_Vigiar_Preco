@@ -10,8 +10,10 @@ def PesquisarDados ():
 
 	#fazendo pesquisas
 	titulos = local_soup.find_all ("span", class_= "a-size-base-plus")
-	precos = local_soup.find_all ("span", class_= "a-offscreen")
-	
+	precos = local_soup.find_all ("span", class_= "a-price-whole")
+	print (f"Tamanho original precos: {len(precos)}")
+	print (precos [16])
+
 	links = local_soup.find_all ("a", class_= "a-link-normal s-no-outline")
 	links = [i["href"] for i in links]
 	links = ["https://www.amazon.com.br"+i for i in links]
@@ -25,13 +27,13 @@ def PesquisarDados ():
 	for l in titulos:
 		if 'ONE PIECE 3 EM 1' in titulos[x].get_text().upper() or 'ONE PIECE (3 EM 1)' in titulos[x].get_text().upper():
 			lista_titulos.append (titulos[x].get_text().strip())
-			if 'R$\xa0' in precos [x].get_text():
-				lista_precos.append (precos[x].get_text().strip())
-				lista_links.append (links[x])
+			#if 'R$' in precos [x].get_text():
+			lista_precos.append (int (precos[x].get_text().replace("\n", "").replace ("'","").replace (",","").strip()))
+			lista_links.append (links[x])
 		x += 1
 
 	#transformar preco string para float
-	lista_precos_float = [float(i[3:].replace(",",".")) for i in lista_precos]
+	#lista_precos_float = [float(i[3:].replace(",",".")) for i in lista_precos]
 
 	#encurtar o link
 	encurtador = pyshorteners.Shortener()
@@ -40,12 +42,12 @@ def PesquisarDados ():
 	#imprimir valores
 	print (f"\nTamanho: {len(lista_titulos)}")
 	print (lista_titulos)
-	print (f"\nTamanho: {len(lista_precos_float)}")
+	print (f"\nTamanho: {len(lista_precos)}")
 	#print (lista_precos)
-	print (lista_precos_float)
+	print (lista_precos)
 	print (f"\nTamanho: {len(lista_links)}")
 	print (lista_links)
 	
 	#retornar valores
-	valores = [lista_titulos, lista_precos_float, lista_links]
+	valores = [lista_titulos, lista_precos, lista_links]
 	return valores
