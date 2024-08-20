@@ -14,11 +14,11 @@ def PesquisarDados ():
 	cards = local_soup.find_all ("div", class_="puis-card-container")
 	for card in cards:
 		titulo = card.find ("span", class_= "a-size-base-plus").get_text().strip()
-		preco = card.find ("span", class_= "a-price-whole")
+		preco = card.find ("span", class_= "a-offscreen")
 		if preco != None:
-			preco = int (preco.get_text().replace(",","").strip())
+			preco = float(preco.get_text().replace(",",".").strip()[3:])
 		else:
-			preco = int()
+			preco = float()
 		link = card.find ("a", class_= "a-link-normal s-no-outline")
 		link = "https://www.amazon.com.br" + link["href"]
 		link_encurtado = pyshorteners.Shortener().tinyurl.short (link)
