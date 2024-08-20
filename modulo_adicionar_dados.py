@@ -9,45 +9,31 @@ def PesquisarDados ():
 	local_soup = soup(site, 'html.parser')	
 
 	#fazendo pesquisas
-	titulos = local_soup.find_all ("span", class_= "a-size-base-plus")
-	precos = local_soup.find_all ("span", class_= "a-price-whole")
-	print (f"Tamanho original precos: {len(precos)}")
-	print (precos [16])
+	volumes = []
 
-	links = local_soup.find_all ("a", class_= "a-link-normal s-no-outline")
-	links = [i["href"] for i in links]
-	links = ["https://www.amazon.com.br"+i for i in links]
+	cards = local_soup.find_all ("div", class_="puis-card-container")
+	for card in cards:
+		titulo = card.find ("span", class_= "a-size-base-plus").get_text().strip()
+		preco = card.find ("span", class_= "a-price-whole")
+		if preco != None:
+			preco = int (preco.get_text().replace(",","").strip())
+		else:
+			preco = int()
+		link = card.find ("a", class_= "a-link-normal s-no-outline")
+		link = "https://www.amazon.com.br" + link["href"]
+		link_encurtado = pyshorteners.Shortener().tinyurl.short (link)
 
-	#adicionar na lista
-	lista_titulos = []
-	lista_precos = []
-	lista_links = []
+		if 'ONE PIECE 3 EM 1' in titulo.upper() or 'ONE PIECE (3 EM 1)' in titulo.upper():
+			volumes.append([titulo,preco,link_encurtado])
 
-	x = 0
-	for l in titulos:
-		if 'ONE PIECE 3 EM 1' in titulos[x].get_text().upper() or 'ONE PIECE (3 EM 1)' in titulos[x].get_text().upper():
-			lista_titulos.append (titulos[x].get_text().strip())
-			#if 'R$' in precos [x].get_text():
-			lista_precos.append (int (precos[x].get_text().replace("\n", "").replace ("'","").replace (",","").strip()))
-			lista_links.append (links[x])
-		x += 1
+	for i in volumes:
+		print (i[0])
+		print (i[1])
+		print (i[2])
+		print()
+
 
 	#transformar preco string para float
 	#lista_precos_float = [float(i[3:].replace(",",".")) for i in lista_precos]
 
-	#encurtar o link
-	encurtador = pyshorteners.Shortener()
-	lista_links = [encurtador.tinyurl.short(i) for i in lista_links]
-
-	#imprimir valores
-	print (f"\nTamanho: {len(lista_titulos)}")
-	print (lista_titulos)
-	print (f"\nTamanho: {len(lista_precos)}")
-	#print (lista_precos)
-	print (lista_precos)
-	print (f"\nTamanho: {len(lista_links)}")
-	print (lista_links)
-	
-	#retornar valores
-	valores = [lista_titulos, lista_precos, lista_links]
-	return valores
+	return volumes

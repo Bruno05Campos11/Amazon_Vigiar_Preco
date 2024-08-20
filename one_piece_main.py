@@ -18,28 +18,16 @@ while k != 5:
 		ExecutarPegarHtml()
 
 	elif k == 2:
-		x = PesquisarDados() 
-		lista_titulos = x[0]
-		lista_precos = x[1]
-		lista_links = x[2]
+		dados = PesquisarDados() 
 	
 	elif k == 3:
-		x = PesquisarDados() 
-		lista_titulos = x[0]
-		lista_precos = x[1]
-		lista_links = x[2]
-
-		InserirNoBanco (lista_titulos, lista_precos, lista_links)
+		dados = PesquisarDados()
+		InserirNoBanco (dados)
 
 	elif k == 4:
 		ExecutarPegarHtml()
-
-		x = PesquisarDados() 
-		lista_titulos = x[0]
-		lista_precos = x[1]
-		lista_links = x[2]
-
-		InserirNoBanco (lista_titulos, lista_precos, lista_links)
+		dados = PesquisarDados()
+		InserirNoBanco (dados)
 
 	elif k == 5:
 		print ("Programa Encerrado!")
