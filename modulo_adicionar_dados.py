@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup as soup
 import pyshorteners
 
-def PesquisarDados ():
+def PesquisarDados (nome_buscador, nome_alternativo, nome_banco):
 	print ("\nMÓDULO 2------------------------------------------------------------------------\n")
 	#construindo um objeto Beautiful Soup
-	endereco = open ("C:/Users/erick/Documents/codes/Amazon_Vigiar_Preco/local_soup_html.html", "r", encoding = "utf-8")
+	arquivo = "C:/Users/erick/Documents/codes/Amazon_Vigiar_Preco/local_soup_"+nome_banco+".html"
+	endereco = open (arquivo, "r", encoding = "utf-8")
 	site = endereco.read()
 	local_soup = soup(site, 'html.parser')	
 
@@ -23,7 +24,7 @@ def PesquisarDados ():
 		link = "https://www.amazon.com.br" + link["href"]
 		link_encurtado = pyshorteners.Shortener().tinyurl.short (link)
 
-		if 'ONE PIECE 3 EM 1' in titulo.upper() or 'ONE PIECE (3 EM 1)' in titulo.upper():
+		if nome_buscador.upper() in titulo.upper() or nome_alternativo.upper() in titulo.upper():
 			volumes.append([titulo,preco,link_encurtado])
 
 	for i in volumes:
@@ -31,9 +32,5 @@ def PesquisarDados ():
 		print (i[1])
 		print (i[2])
 		print()
-
-
-	#transformar preco string para float
-	#lista_precos_float = [float(i[3:].replace(",",".")) for i in lista_precos]
 
 	return volumes

@@ -4,11 +4,11 @@ from bs4 import BeautifulSoup as soup
 from time import sleep
 import re
 
-def EntrarAmazon ():
+def EntrarAmazon (nome):
 	print ("\nMÓDULO 1------------------------------------------------------------------------\n")
 	configuracao = webdriver.EdgeOptions()
 	configuracao.add_argument("--start-maximized")
-	configuracao.add_argument("--headless") #para rodar em segundo plano sem abrir o navegador
+	#configuracao.add_argument("--headless") #para rodar em segundo plano sem abrir o navegador
 	navegador = webdriver.Edge(options=configuracao)
 
 	navegador.get ("https://www.amazon.com.br/")
@@ -21,7 +21,7 @@ def EntrarAmazon ():
 		quit()
 
 	pesquisa = navegador.find_element (By.XPATH, "//input[@name= 'field-keywords']")
-	pesquisa.send_keys("One Piece 3 em 1")
+	pesquisa.send_keys(nome)
 	pesquisa.submit()
 
 	#preparar para salvar página html como local
@@ -29,10 +29,11 @@ def EntrarAmazon ():
 	#print (site_atual.prettify())
 	return site_atual
 
-def SalvarLocal(site_soup):
-	with open ("local_soup_html.html", "w", encoding = "utf-8") as texto:
+def SalvarLocal(site_soup, nome_banco):
+	arquivo = "local_soup_" +nome_banco+ ".html"
+	with open (arquivo, "w", encoding = "utf-8") as texto:
 		texto.write (site_soup.prettify())
 
-def ExecutarPegarHtml ():
-	este_site = EntrarAmazon()
-	SalvarLocal(este_site)
+def ExecutarPegarHtml (nome, nome_banco):
+	este_site = EntrarAmazon(nome)
+	SalvarLocal(este_site, nome_banco)
