@@ -16,6 +16,7 @@ def EscolherManga():
 		print ("\t\t\t7 - Ao no Flag")
 		k = int (input ("\nSELECIONE UMA OBRA: "))
 
+		#Criando objetos da classe Obra com os respectivos atributos: nome, nome na busca, nome alternativo de busca e nome no banco de dados.
 		if k == 1:
 			obra = Obra ("One Piece 3 em 1", "One Piece 3 em 1", "One Piece (3 em 1)", "One_Piece_3_em_1_")
 
