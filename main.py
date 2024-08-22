@@ -6,12 +6,14 @@ from classe_manga import Obra
 
 def EscolherManga():
 	k = 0
-	while k < 1 or k > 5:
+	while k < 1 or k > 7:
 		print ("\t\t\t1 - One Piece 3 em 1")
 		print ("\t\t\t2 - Jojo parte 4")
 		print ("\t\t\t3 - Scott Pilgrim")
 		print ("\t\t\t4 - Takagi-san")
 		print ("\t\t\t5 - Almanaque Guará")
+		print ("\t\t\t6 - Tokyo Revengers")
+		print ("\t\t\t7 - Ao no Flag")
 		k = int (input ("\nSELECIONE UMA OBRA: "))
 
 		if k == 1:
@@ -29,39 +31,49 @@ def EscolherManga():
 		elif k == 5:
 			obra = Obra("Almanaque Guará", "Almanaque Guar", "Almanaque Guar",  "Almanaque_Guara_")
 
+		elif k ==6:
+			obra = Obra("Tokyo Revengers", "Tokyo Revengers - Vol", "Tokyo Revengers - Vol", "Tokyo_Revengers_")
+
+		elif k ==7:
+			obra = Obra("Ao no Flag", "Ao no Flag Vol", "Ao no Flag Vol", "Ao_no_Flag_")
+
 		else:
 			print ("Comando inválido!")
 
-		return obra
+	return obra
 
 def Menu(obra):
 	k = 0
-	while k != 10:
+	while k != 6:
 		print ("\n\t\t\tMAIN")
-		print ("\t\t\t6 - Capturar Html da Amazon")
-		print ("\t\t\t7 - Pesquisar dados (execute a função '1' ao menos uma vez)")
-		print ("\t\t\t8 - Pesquisar e Inseri-los no banco")
-		print ("\t\t\t9 - Executar tudo")
-		print ("\t\t\t10 - Sair")
+		print ("\t\t\t1 - Executar tudo")
+		print ("\t\t\t2 - Capturar Html da Amazon")
+		print ("\t\t\t3 - Pesquisar dados (execute a função '1' ao menos uma vez)")
+		print ("\t\t\t4 - Pesquisar e Inseri-los no banco")
+		print ("\t\t\t5 - Escolher outro quadrinho")
+		print ("\t\t\t6 - Sair")
 		k = int (input ("\nSELECIONE UMA FUNÇÃO: "))
 
 
-		if k == 6:
+		if k == 1:
+			ExecutarPegarHtml (obra.nome, obra.banco)
+			dados = PesquisarDados (obra.buscador, obra.alternativo, obra.banco)
+			InserirNoBanco (dados, obra.banco)
+
+		elif k == 2:
 			ExecutarPegarHtml (obra.nome, obra.banco)
 
-		elif k == 7:
+		elif k == 3:
 			dados = PesquisarDados (obra.buscador, obra.alternativo, obra.banco) 
 		
-		elif k == 8:
+		elif k == 4:
 			dados = PesquisarDados (obra.buscador, obra.alternativo, obra.banco)
 			InserirNoBanco (dados, obra.banco)
 
-		elif k == 9:
-			ExecutarPegarHtml (obra.nome, obra.banco)
-			dados = PesquisarDados (obra.buscador, obra.alternativo, obra.banco)
-			InserirNoBanco (dados, obra.banco)
+		elif k == 5:
+			obra = EscolherManga()
 
-		elif k == 10:
+		elif k == 6:
 			print ("Programa Encerrado!")
 
 		else:

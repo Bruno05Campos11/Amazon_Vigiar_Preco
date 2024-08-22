@@ -4,7 +4,7 @@ from datetime import date
 #"SelecionarPrecos()" é a última função do arquivo
 
 def InserirNoBanco (volumes, nome_banco):
-	print ("\nMÓDULO 3------------------------------------------------------------------------\n")
+	print ("\nMÓDULO 3: Banco de Dados---------------------------------------------------------\n")
 	#conexão com o banco
 	banco = db.connect (
 		host= "127.0.0.1",

@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as soup
 import pyshorteners
 
 def PesquisarDados (nome_buscador, nome_alternativo, nome_banco):
-	print ("\nMÓDULO 2------------------------------------------------------------------------\n")
+	print ("\nMÓDULO 2: Adicionar Dados--------------------------------------------------------------\n")
 	#construindo um objeto Beautiful Soup
 	arquivo = "C:/Users/erick/Documents/codes/Amazon_Vigiar_Preco/local_soup_"+nome_banco+".html"
 	endereco = open (arquivo, "r", encoding = "utf-8")
@@ -17,7 +17,10 @@ def PesquisarDados (nome_buscador, nome_alternativo, nome_banco):
 		titulo = card.find ("span", class_= "a-size-base-plus").get_text().strip()
 		preco = card.find ("span", class_= "a-offscreen")
 		if preco != None:
-			preco = float(preco.get_text().replace(",",".").strip()[3:])
+			try:
+				preco = float(preco.get_text().replace(".", "").replace(",",".").strip()[3:])
+			except:
+				break
 		else:
 			preco = float()
 		link = card.find ("a", class_= "a-link-normal s-no-outline")
